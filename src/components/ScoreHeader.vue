@@ -1,12 +1,20 @@
 <script setup lang="ts">
-const props = defineProps<{
+export interface Props {
   score: number
-}>()
+  bonus?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  bonus: false,
+})
 </script>
 
 <template>
-  <section class="score-header">
-    <h1 class="title">Rock Paper Scissors</h1>
+  <section :class="['score-header', { bonus }]">
+    <h1 class="title">
+      Rock Paper Scissors
+      <template v-if="bonus">Lizard Spock</template>
+    </h1>
 
     <div class="score">
       <span class="label">Score</span>
@@ -22,7 +30,7 @@ const props = defineProps<{
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .title {
@@ -31,7 +39,11 @@ const props = defineProps<{
   line-height: 0.8;
   color: white;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+}
+
+.bonus .title {
+  font-size: 0.75rem;
 }
 
 .score {

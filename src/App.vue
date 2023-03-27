@@ -2,15 +2,17 @@
 import { ref } from "vue"
 import ScoreHeader from "./components/ScoreHeader.vue"
 
-const score = ref(12)
+const bonus = import.meta.env.VITE_BONUS === "true"
+
+const score = ref(0)
 </script>
 
 <template>
   <header class="header">
-    <ScoreHeader :score="score" />
+    <ScoreHeader :score="score" :bonus="bonus" />
   </header>
 
-  <main>Hola</main>
+  <main></main>
 </template>
 
 <style scoped>
