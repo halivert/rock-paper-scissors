@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import bonusLogo from "@/assets/logo-bonus.svg"
+import logo from "@/assets/logo.svg"
+
 export interface Props {
   score: number
   bonus?: boolean
@@ -11,10 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <section :class="['score-header', { bonus }]">
-    <h1 class="title">
-      Rock Paper Scissors
-      <template v-if="bonus">Lizard Spock</template>
-    </h1>
+    <img class="title" :src="bonus ? bonusLogo : logo" />
 
     <div class="score">
       <span class="label">Score</span>
@@ -34,16 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .title {
-  text-transform: uppercase;
-  flex: 0 1 10%;
-  line-height: 0.8;
-  color: white;
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-.bonus .title {
-  font-size: 0.75rem;
+  height: 3rem;
 }
 
 .score {
