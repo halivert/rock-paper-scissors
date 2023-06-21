@@ -33,6 +33,10 @@ const props = withDefaults(defineProps<Props>(), {
   overflow: hidden;
 }
 
+.score-header.bonus .title {
+	height: 4rem;
+}
+
 .title {
   height: 3rem;
 }
