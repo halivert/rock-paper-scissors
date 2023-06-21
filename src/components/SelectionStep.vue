@@ -54,7 +54,8 @@ onMounted(start)
           :signal="props.player"
           :icon="icons[props.player]"
           :waves="props.winner === 'player'"
-        ></SignalButton>
+        >
+        </SignalButton>
       </div>
 
       <label> You picked </label>
@@ -110,7 +111,7 @@ onMounted(start)
 .component label {
   color: var(--white);
   display: block;
-  margin-top: 1em;
+  margin-block: 1em 0;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
