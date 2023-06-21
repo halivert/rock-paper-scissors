@@ -1,17 +1,37 @@
 <script setup lang="ts">
-export interface Props {
-  signal: string
-  icon: {
-    icon: string
-    color: string
-  }
-}
+import type { BaseIcons } from "@/base-icons"
+
+type Props =
+  | {
+      signal: keyof BaseIcons
+      icon: {
+        icon: string
+        color: string
+      }
+    }
+  | {
+      signal: "empty"
+    }
 
 const props = defineProps<Props>()
+
+const $emit = defineEmits<{
+  select: [signal: string]
+}>()
 </script>
 
 <template>
-  <button class="button">
+  <div v-if="props.signal === 'empty'" class="empty">
+    <div class="circle"></div>
+  </div>
+  <button
+    v-else
+    class="button"
+    @click="$emit('select', signal)"
+    :style="{
+      '--icon-bg-color': props.icon.color,
+    }"
+  >
     <div class="circle">
       <img :src="props.icon.icon" />
     </div>
@@ -46,7 +66,6 @@ const props = defineProps<Props>()
   box-shadow: inset 0 4px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-
 .button:hover .circle {
   box-shadow: inset 0 5px 2px 1px rgba(0, 0, 0, 0.2);
 }
@@ -60,7 +79,7 @@ const props = defineProps<Props>()
   position: absolute;
   inset: 0;
   border-radius: 100%;
-  background: v-bind("props.icon.color");
+  background: var(--icon-bg-color);
   box-shadow: inset 0 -4px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
@@ -70,5 +89,10 @@ const props = defineProps<Props>()
 
 .circle img {
   height: 100%;
+}
+
+.empty .circle {
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 </style>
