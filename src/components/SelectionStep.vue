@@ -85,12 +85,12 @@ onMounted(start)
 
 <style scoped>
 .component {
-  margin-block: 6rem;
+  margin-block: 5rem 0;
   text-align: center;
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
-  row-gap: 5rem;
+  row-gap: 4rem;
 	column-gap: 1.75rem;
 }
 
@@ -110,6 +110,7 @@ onMounted(start)
 }
 
 .component label {
+	font-size: 0.875rem;
   color: var(--white);
   display: block;
   margin-block: 1em 0;
@@ -126,7 +127,7 @@ onMounted(start)
 
 .result span {
   color: var(--white);
-  font-size: 3.5rem;
+  font-size: 3.5em;
   text-transform: uppercase;
   font-weight: 700;
 }

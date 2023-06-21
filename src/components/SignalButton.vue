@@ -13,7 +13,7 @@ type Props = (
       signal: "empty"
     }
 ) & {
-  waves: boolean
+  waves?: boolean
 }
 
 const props = defineProps<Props>()
@@ -29,7 +29,7 @@ const $emit = defineEmits<{
   </div>
   <button
     v-else
-    :class="['button', { waves }]"
+    :class="['button', { waves: props.waves }]"
     @click="$emit('select', signal)"
     :style="{
       '--icon-bg-color': props.icon.color,
@@ -107,7 +107,7 @@ const $emit = defineEmits<{
   border-radius: var(--radius);
   box-shadow: 0 0 3px 20px rgba(255, 255, 255, var(--opacity)),
     0 0 3px 50px rgba(255, 255, 255, var(--opacity)),
-    0 0 3px 80px rgba(255, 255, 255, var(--opacity));
+    0 0 3px 85px rgba(255, 255, 255, var(--opacity));
 
   z-index: -1;
 }
