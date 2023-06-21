@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BaseIcons } from "@/base-icons"
 
-type Props =
+type Props = (
   | {
       signal: keyof BaseIcons
       icon: {
@@ -12,6 +12,9 @@ type Props =
   | {
       signal: "empty"
     }
+) & {
+  waves: boolean
+}
 
 const props = defineProps<Props>()
 
@@ -26,7 +29,7 @@ const $emit = defineEmits<{
   </div>
   <button
     v-else
-    class="button"
+    :class="['button', { waves }]"
     @click="$emit('select', signal)"
     :style="{
       '--icon-bg-color': props.icon.color,
@@ -40,17 +43,19 @@ const $emit = defineEmits<{
 
 <style scoped>
 .button {
+  --radius: 100%;
+
   display: inline-block;
   position: relative;
   padding: 1.25em;
   border: none;
   appearance: none;
   background: transparent;
+  aspect-ratio: 1;
 }
 
 .circle {
-  --size: 7em;
-  --radius: 100%;
+  --size: calc(100% - 0.25rem);
 
   padding: 1.75em;
   align-items: center;
@@ -94,5 +99,16 @@ const $emit = defineEmits<{
 .empty .circle {
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: none;
+}
+
+.waves {
+  --opacity: 0.03;
+
+  border-radius: var(--radius);
+  box-shadow: 0 0 3px 20px rgba(255, 255, 255, var(--opacity)),
+    0 0 3px 50px rgba(255, 255, 255, var(--opacity)),
+    0 0 3px 80px rgba(255, 255, 255, var(--opacity));
+
+  z-index: -1;
 }
 </style>

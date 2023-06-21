@@ -91,6 +91,7 @@ onMounted(start)
   justify-content: space-around;
   flex-flow: row wrap;
   row-gap: 5rem;
+	column-gap: 1.75rem;
 }
 
 .block {
@@ -128,6 +129,10 @@ onMounted(start)
   font-size: 3.5rem;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.signal-button {
+	width: 100%;
 }
 
 .result {
