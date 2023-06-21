@@ -1,29 +1,45 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue"
-import { baseIcons, type BaseIcons, type Signal } from "@/base-icons"
+import { onMounted, ref, computed, watch } from "vue"
+import { icons, type BaseIcons, type Signal } from "@/base-icons"
 import SignalButton from "@/components/SignalButton.vue"
+import ActionButton from "@/components/ActionButton.vue"
 
 const props = defineProps<{
   player: keyof BaseIcons
+  winner: Winner
 }>()
 
-const computer = ref<Signal>("empty")
+const $emit = defineEmits<{
+  housePicks: [signal: keyof BaseIcons]
+}>()
+
+const keys = Object.keys(icons.value) as [keyof BaseIcons]
+const step = 80
+const times = Array.from({ length: keys.length }, (_, x) => x * step)
+
+const housePick = ref<Signal>("empty")
 
 const index = ref(0)
 
-const keys = Object.keys(baseIcons) as [keyof BaseIcons]
+const status = computed(() => {
+  if (props.winner === "player") {
+    return "You win"
+  }
 
-const times = [0, 100, 200, 300, 400]
+  return props.winner === "house" ? "You lose" : "Draw"
+})
 
 const start = () => {
   const interval = setInterval(() => {
-    computer.value = keys[index.value]
+    housePick.value = keys[index.value]
     index.value = (index.value + keys.length + 1) % keys.length
-  }, 100)
+  }, step)
 
   setTimeout(() => {
+    if (housePick.value === "empty") throw new Error("House can't pick empty")
     clearInterval(interval)
-  }, 1000 + times[Math.floor(Math.random() * times.length)])
+    $emit("housePicks", housePick.value)
+  }, step * 10 + times[Math.floor(Math.random() * times.length)])
 }
 
 onMounted(start)
@@ -31,25 +47,35 @@ onMounted(start)
 
 <template>
   <section class="component">
-    <div class="container">
-      <div>
+    <div class="item">
+      <div class="block">
         <SignalButton
           class="signal-button"
           :signal="props.player"
-          :icon="baseIcons[props.player]"
+          :icon="icons[props.player]"
+          :waves="props.winner === 'player'"
         ></SignalButton>
       </div>
-      <div>
-        <SignalButton
-          class="signal-button"
-          :signal="computer"
-          :icon="computer !== 'empty' ? baseIcons[computer] : null"
-        ></SignalButton>
-      </div>
+
+      <label> You picked </label>
     </div>
 
-    <div class="container">
-      <label> You picked </label>
+    <div class="item result" v-if="props.winner">
+      <span> {{ status }} </span>
+
+      <ActionButton @click="$emit('play-again')"> Play again </ActionButton>
+    </div>
+
+    <div class="item">
+      <div class="block">
+        <SignalButton
+          class="signal-button"
+          :signal="housePick"
+          :icon="housePick !== 'empty' ? icons[housePick] : null"
+          :waves="props.winner === 'house'"
+        >
+        </SignalButton>
+      </div>
 
       <label> The house picked </label>
     </div>
@@ -58,26 +84,53 @@ onMounted(start)
 
 <style scoped>
 .component {
-  margin: 7rem 0;
+  margin-block: 6rem;
   text-align: center;
-}
-
-.container {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  flex-flow: row wrap;
+  row-gap: 5rem;
 }
 
-.container > * {
+.block {
+  display: block;
+}
+
+.item {
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column nowrap;
 }
 
-.container label {
-  color: white;
+.component .empty {
+  margin-top: 1em;
+}
+
+.component label {
+  color: var(--white);
   display: block;
   margin-top: 1em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
+}
+
+.result {
+  order: 1;
+  flex: 1 0 100%;
+  align-items: center;
+}
+
+.result span {
+  color: var(--white);
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.result {
+  --background-color: var(--white);
+  --color: var(--dark-text);
 }
 </style>

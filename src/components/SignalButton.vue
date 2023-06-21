@@ -16,7 +16,7 @@ type Props =
 const props = defineProps<Props>()
 
 const $emit = defineEmits<{
-  select: [signal: string]
+  select: [signal: keyof BaseIcons]
 }>()
 </script>
 

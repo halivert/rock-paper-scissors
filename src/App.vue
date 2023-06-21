@@ -1,39 +1,35 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
-import { baseIcons, type BaseIcons, type Signal } from "@/base-icons"
+import { ref } from "vue"
+import { bonus, icons, type BaseIcons, type Signal } from "@/base-icons"
 import { loses } from "@/brackets"
 import ScoreHeader from "@/components/ScoreHeader.vue"
 import SignalButton from "@/components/SignalButton.vue"
 import SelectionStep from "@/components/SelectionStep.vue"
 
-const bonus = ref(import.meta.env.VITE_BONUS === "true")
 const score = ref(0)
+const winner = ref<Winner>()
+const player = ref<Signal>("empty")
 
-const icons = computed(
-  () =>
-    Object.fromEntries(
-      Object.entries(baseIcons).filter(([iconName]) => {
-        if (bonus.value) return true
+function play(housePick: keyof BaseIcons): number {
+  if (housePick === player.value) {
+    winner.value = "draw"
+    return 0
+  }
 
-        return !["lizard", "spock"].includes(iconName)
-      })
-    ) as Record<keyof BaseIcons, Icon>
-)
+  if (loses[player.value].includes(housePick)) {
+    winner.value = "house"
+    return -1
+  }
 
-const player = ref<Signal>("scissors")
-const computer = ref<Signal>("empty")
+  winner.value = "player"
+  score.value++
+  return 1
+}
 
-// const play = (player: string) => {
-//   const options = Object.keys(icons.value)
-//   const computer = options[Math.floor(Math.random() * options.length)]
-//
-//   console.info({ computer, player })
-//
-//   if (computer === player) return 0
-//   if (loses[player].includes(computer)) return -1
-//   score.value++
-//   return 1
-// }
+function restart(): void {
+  winner.value = undefined
+  player.value = "empty"
+}
 </script>
 
 <template>
@@ -42,17 +38,23 @@ const computer = ref<Signal>("empty")
   </header>
 
   <main>
-    <template v-if="player === 'empty' && computer === 'empty'">
+    <template v-if="player === 'empty'">
       <SignalButton
         v-for="(icon, name) in icons"
         :key="name"
         :signal="name"
         :icon="icon"
         @select="player = $event"
-      ></SignalButton>
+      >
+      </SignalButton>
     </template>
-    <template v-else-if="player !== 'empty'">
-      <SelectionStep :player="player"></SelectionStep>
+    <template v-else>
+      <SelectionStep
+        :player="player"
+        :winner="winner"
+        @house-picks="play"
+        @play-again="restart"
+      ></SelectionStep>
     </template>
   </main>
 </template>
