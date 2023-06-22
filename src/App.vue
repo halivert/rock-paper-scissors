@@ -6,10 +6,7 @@ import ScoreHeader from "@/components/ScoreHeader.vue"
 import SignalButton from "@/components/SignalButton.vue"
 import SelectionStep from "@/components/SelectionStep.vue"
 import ActionButton from "@/components/ActionButton.vue"
-
-import Rules from "@/assets/image-rules.svg"
-import RulesBonus from "@/assets/image-rules-bonus.svg"
-import CloseButton from "@/assets/icon-close.svg"
+import RulesDialog from "./components/RulesDialog.vue"
 
 const score = ref(0)
 const winner = ref<Winner>()
@@ -65,23 +62,11 @@ function restart(): void {
     </template>
 
     <Teleport to="body">
-      <dialog :open="showRules" class="dialog">
-        <h2 class="title">Rules</h2>
-        <picture class="picture">
-          <img
-            :src="bonus ? RulesBonus : Rules"
-            :alt="
-              bonus
-                ? 'Rules of the rock, paper, scissors, lizard, spock game'
-                : 'Rules of the rock, paper, scissors game'
-            "
-          />
-        </picture>
-
-        <button class="close-button" @click="showRules = false">
-          <img :src="CloseButton" alt="close icon" />
-        </button>
-      </dialog>
+      <RulesDialog
+        :bonus="bonus"
+        :open="showRules"
+        @close="showRules = false"
+      ></RulesDialog>
     </Teleport>
   </main>
 
@@ -89,6 +74,16 @@ function restart(): void {
     <ActionButton class="rules-button" @click="showRules = true"
       >Rules</ActionButton
     >
+
+    <div class="attribution">
+      Challenge by
+      <a
+        rel="noopener noreferrer"
+        href="https://www.frontendmentor.io?ref=challenge"
+        target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="https://halivert.dev">Halí</a>.
+    </div>
   </footer>
 </template>
 
@@ -117,42 +112,24 @@ footer {
   padding-block: 0.5em;
 }
 
-.dialog {
-  border: none;
-  height: 100%;
-  width: 100%;
-  background-color: var(--white);
-  display: none;
-  flex-flow: column nowrap;
-  inset: 0;
-  justify-content: space-around;
-  padding: 1.5rem;
-  position: absolute;
-  z-index: 2;
+.attribution {
+  position: fixed;
+  font-size: 0.75rem;
+  bottom: 0.25em;
+  left: 0;
+  right: 0;
+  color: var(--white);
+  font-weight: 600;
 }
 
-.dialog[open] {
-  display: flex;
+.attribution a {
+  text-decoration: none;
+  color: transparent;
+  background: var(--cyan-gradient);
+  background-clip: text;
 }
 
-.dialog .title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.picture,
-.picture img {
-	text-align: center;
-  max-width: 100%;
-}
-
-.close-button {
-  border: none;
-  background-color: transparent;
-  display: inline-block;
-  align-self: center;
-  padding: 1rem;
+.attribution a:visited {
+  background: var(--lizard-gradient);
 }
 </style>
