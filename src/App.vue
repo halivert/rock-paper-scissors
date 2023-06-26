@@ -160,12 +160,12 @@ main {
 
 .triangle button:nth-child(1) {
   top: 10%;
-  left: 3%;
+  left: 65%;
 }
 
 .triangle button:nth-child(2) {
   top: 10%;
-  left: 65%;
+  left: 3%;
 }
 
 .triangle button:nth-child(3) {
@@ -198,8 +198,22 @@ main {
   }
 
   .triangle .signal-button {
-		/* TODO: set size */
-    --size: 32%;
+    --size: 43%;
+  }
+
+  .triangle button:nth-child(1) {
+    top: 3%;
+    left: 65%;
+  }
+
+  .triangle button:nth-child(2) {
+    top: 3%;
+    left: -3%;
+  }
+
+  .triangle button:nth-child(3) {
+    top: 55%;
+    left: 29%;
   }
 }
 </style>

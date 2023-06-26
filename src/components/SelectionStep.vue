@@ -47,7 +47,7 @@ onMounted(start)
 
 <template>
   <section class="component">
-    <div class="item">
+    <div class="item player">
       <div class="block">
         <SignalButton
           class="signal-button"
