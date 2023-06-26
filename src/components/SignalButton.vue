@@ -29,7 +29,7 @@ const $emit = defineEmits<{
   </div>
   <button
     v-else
-    :class="['button', { waves: props.waves }]"
+    :class="['button', { waves: props.waves }, props.signal]"
     @click="$emit('select', signal)"
     :style="{
       '--icon-bg-color': props.icon.color,
@@ -45,30 +45,34 @@ const $emit = defineEmits<{
 .button {
   --radius: 100%;
 
+	width: var(--size, 100%);
   display: inline-block;
   position: relative;
-  padding: 1.25em;
+  padding: calc(var(--size) * 0.11);
   border: none;
   appearance: none;
   background: transparent;
+	overflow: hidden;
   aspect-ratio: 1;
+	user-select: none;
 }
 
 .circle {
-  --size: calc(100% - 0.25rem);
+  --circle-size: calc(100% - 0.25rem);
 
-  padding: 1.75em;
+  padding: calc(var(--circle-size) * 0.2);
   align-items: center;
   background-color: white;
   border-radius: var(--radius);
   display: inline-flex;
   justify-content: center;
   margin: 0;
-  width: var(--size);
-  height: var(--size);
+  width: var(--circle-size);
+  height: var(--circle-size);
   position: relative;
   z-index: 1;
   box-shadow: inset 0 4px 2px 1px rgba(0, 0, 0, 0.2);
+	pointer-events: none;
 }
 
 .button:hover .circle {
@@ -110,5 +114,9 @@ const $emit = defineEmits<{
     0 0 3px 85px rgba(255, 255, 255, var(--opacity));
 
   z-index: -1;
+}
+
+.button.rock .circle {
+  padding: calc(var(--circle-size) * 0.3);
 }
 </style>

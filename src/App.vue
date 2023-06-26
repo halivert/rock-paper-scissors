@@ -5,7 +5,7 @@ import { loses } from "@/brackets"
 import ScoreHeader from "@/components/ScoreHeader.vue"
 import SignalButton from "@/components/SignalButton.vue"
 import SelectionStep from "@/components/SelectionStep.vue"
-import ActionButton from "@/components/ActionButton.vue"
+import AppFooter from "@/components/AppFooter.vue"
 import RulesDialog from "./components/RulesDialog.vue"
 
 const score = ref(0)
@@ -43,14 +43,17 @@ function restart(): void {
 
   <main>
     <template v-if="player === 'empty'">
-      <SignalButton
-        v-for="(icon, name) in icons"
-        :key="name"
-        :signal="name"
-        :icon="icon"
-        @select="player = $event"
-      >
-      </SignalButton>
+      <div class="pentagon">
+        <SignalButton
+          v-for="(icon, name) in icons"
+          :key="name"
+          :signal="name"
+          :icon="icon"
+          @select="player = $event"
+          :style="{ '--size': '28%' }"
+        >
+        </SignalButton>
+      </div>
     </template>
     <template v-else>
       <SelectionStep
@@ -70,21 +73,7 @@ function restart(): void {
     </Teleport>
   </main>
 
-  <footer>
-    <ActionButton class="rules-button" @click="showRules = true"
-      >Rules</ActionButton
-    >
-
-    <div class="attribution">
-      Challenge by
-      <a
-        rel="noopener noreferrer"
-        href="https://www.frontendmentor.io?ref=challenge"
-        target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="https://halivert.dev">Halí</a>.
-    </div>
-  </footer>
+  <AppFooter @show-rules="showRules = true"></AppFooter>
 </template>
 
 <style scoped>
@@ -97,39 +86,48 @@ function restart(): void {
 
 main {
   flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding-block: 0 4.2em;
 }
 
-footer {
-  text-align: center;
-  padding-block: 0 1.25rem;
+.pentagon {
+  margin-inline: auto;
+  aspect-ratio: 1;
+  overflow: hidden;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  position: relative;
+  max-width: 20em;
+  width: 100%;
 }
 
-.rules-button {
-  --background-color: transparent;
-  --color: var(--white);
-
-  padding-inline: 2em;
-  padding-block: 0.5em;
+.pentagon button {
+  position: absolute;
 }
 
-.attribution {
-  position: fixed;
-  font-size: 0.75rem;
-  bottom: 0.25em;
-  left: 0;
-  right: 0;
-  color: var(--white);
-  font-weight: 600;
+.pentagon button:nth-child(1) {
+  top: 6%;
+  left: 36%;
 }
 
-.attribution a {
-  text-decoration: none;
-  color: transparent;
-  background: var(--cyan-gradient);
-  background-clip: text;
+.pentagon button:nth-child(2) {
+  top: 31%;
+  left: 69%;
 }
 
-.attribution a:visited {
-  background: var(--lizard-gradient);
+.pentagon button:nth-child(3) {
+  top: 69%;
+  left: 56%;
+}
+
+.pentagon button:nth-child(4) {
+  top: 69%;
+  left: 17%;
+}
+
+.pentagon button:nth-child(5) {
+  top: 32%;
+  left: 4%;
 }
 </style>
