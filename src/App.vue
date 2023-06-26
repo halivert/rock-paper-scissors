@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import { bonus, icons, type BaseIcons, type Signal } from "@/base-icons"
+import {
+  bonus,
+  icons,
+  type BaseIcons,
+  type Signal,
+  connectors,
+} from "@/base-icons"
 import { loses } from "@/brackets"
 import ScoreHeader from "@/components/ScoreHeader.vue"
 import SignalButton from "@/components/SignalButton.vue"
@@ -53,6 +59,7 @@ function restart(): void {
           :style="{ '--size': '28%' }"
         >
         </SignalButton>
+        <img class="connectors" :src="connectors" alt="" aria-hidden="true" />
       </div>
     </template>
     <template v-else>
@@ -93,12 +100,12 @@ main {
 }
 
 .pentagon {
+  display: grid;
+  place-items: center;
   margin-inline: auto;
   aspect-ratio: 1;
-  overflow: hidden;
-  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
   position: relative;
-  max-width: 20em;
+  max-width: 19em;
   width: 100%;
 }
 
@@ -107,27 +114,32 @@ main {
 }
 
 .pentagon button:nth-child(1) {
-  top: 6%;
+  top: 4%;
   left: 36%;
 }
 
 .pentagon button:nth-child(2) {
   top: 31%;
-  left: 69%;
+  left: 71%;
 }
 
 .pentagon button:nth-child(3) {
-  top: 69%;
-  left: 56%;
+  top: 71%;
+  left: 57%;
 }
 
 .pentagon button:nth-child(4) {
-  top: 69%;
-  left: 17%;
+  top: 71%;
+  left: 15%;
 }
 
 .pentagon button:nth-child(5) {
-  top: 32%;
-  left: 4%;
+  top: 31%;
+  left: 1%;
+}
+
+.pentagon .connectors {
+  width: 66%;
+  z-index: -1;
 }
 </style>

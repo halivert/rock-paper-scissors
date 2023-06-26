@@ -5,6 +5,8 @@ import PaperIcon from "@/assets/icon-paper.svg"
 import ScissorsIcon from "@/assets/icon-scissors.svg"
 import LizardIcon from "@/assets/icon-lizard.svg"
 import SpockIcon from "@/assets/icon-spock.svg"
+import PentagonConnector from "@/assets/bg-pentagon.svg"
+import TriangleConnector from "@/assets/bg-pentagon.svg"
 
 export const bonus = ref(getBooleanQueryParam("bonus"))
 
@@ -47,4 +49,8 @@ export const icons = computed(() =>
 
     return !["lizard", "spock"].includes(iconName)
   })
+)
+
+export const connectors = computed(() =>
+  bonus.value ? PentagonConnector : TriangleConnector
 )

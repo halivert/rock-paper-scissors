@@ -46,7 +46,6 @@ const $emit = defineEmits<{
   position: absolute;
   width: 100%;
   z-index: 2;
-	background-color: transparent;
 }
 
 .dialog[open] {
