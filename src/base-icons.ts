@@ -6,7 +6,7 @@ import ScissorsIcon from "@/assets/icon-scissors.svg"
 import LizardIcon from "@/assets/icon-lizard.svg"
 import SpockIcon from "@/assets/icon-spock.svg"
 import PentagonConnector from "@/assets/bg-pentagon.svg"
-import TriangleConnector from "@/assets/bg-pentagon.svg"
+import TriangleConnector from "@/assets/bg-triangle.svg"
 
 export const bonus = ref(getBooleanQueryParam("bonus"))
 

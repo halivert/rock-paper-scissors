@@ -49,14 +49,14 @@ function restart(): void {
 
   <main>
     <template v-if="player === 'empty'">
-      <div class="pentagon">
+      <div :class="[bonus ? 'pentagon' : 'triangle']">
         <SignalButton
+          class="signal-button"
           v-for="(icon, name) in icons"
           :key="name"
           :signal="name"
           :icon="icon"
           @select="player = $event"
-          :style="{ '--size': '28%' }"
         >
         </SignalButton>
         <img class="connectors" :src="connectors" alt="" aria-hidden="true" />
@@ -109,6 +109,10 @@ main {
   width: 100%;
 }
 
+.pentagon .signal-button {
+  --size: 28%;
+}
+
 .pentagon button {
   position: absolute;
 }
@@ -139,6 +143,44 @@ main {
 }
 
 .pentagon .connectors {
+  width: 66%;
+  z-index: -1;
+}
+
+.triangle {
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  aspect-ratio: 1;
+  position: relative;
+  max-width: 19em;
+  width: 100%;
+}
+
+.triangle .signal-button {
+  --size: 32%;
+}
+
+.triangle button {
+  position: absolute;
+}
+
+.triangle button:nth-child(1) {
+  top: 10%;
+  left: 3%;
+}
+
+.triangle button:nth-child(2) {
+  top: 10%;
+  left: 65%;
+}
+
+.triangle button:nth-child(3) {
+  top: 60%;
+  left: 34%;
+}
+
+.triangle .connectors {
   width: 66%;
   z-index: -1;
 }
