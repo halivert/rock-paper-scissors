@@ -45,16 +45,16 @@ const $emit = defineEmits<{
 .button {
   --radius: 100%;
 
-	width: var(--size, 100%);
+  width: var(--size, 100%);
   display: inline-block;
   position: relative;
   padding: calc(var(--size) * 0.11);
   border: none;
   appearance: none;
   background: transparent;
-	overflow: hidden;
+  overflow: hidden;
   aspect-ratio: 1;
-	user-select: none;
+  user-select: none;
 }
 
 .circle {
@@ -72,7 +72,7 @@ const $emit = defineEmits<{
   position: relative;
   z-index: 1;
   box-shadow: inset 0 4px 2px 1px rgba(0, 0, 0, 0.2);
-	pointer-events: none;
+  pointer-events: none;
 }
 
 .button:hover .circle {
@@ -118,5 +118,15 @@ const $emit = defineEmits<{
 
 .button.rock .circle {
   padding: calc(var(--circle-size) * 0.3);
+}
+
+@media (min-width: 800px) {
+  .waves {
+    --opacity: 0.028;
+
+    box-shadow: 0 0 3px 50px rgba(255, 255, 255, var(--opacity)),
+      0 0 3px 120px rgba(255, 255, 255, var(--opacity)),
+      0 0 3px 200px rgba(255, 255, 255, var(--opacity));
+  }
 }
 </style>

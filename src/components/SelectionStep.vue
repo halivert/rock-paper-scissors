@@ -54,7 +54,6 @@ onMounted(start)
           :signal="props.player"
           :icon="icons[props.player]"
           :waves="props.winner === 'player'"
-          :style="{ '--size': '75%' }"
         >
         </SignalButton>
       </div>
@@ -68,14 +67,13 @@ onMounted(start)
       <ActionButton @click="$emit('play-again')"> Play again </ActionButton>
     </div>
 
-    <div class="item">
+    <div class="item house">
       <div class="block">
         <SignalButton
           class="signal-button"
           :signal="housePick"
           :icon="housePick !== 'empty' ? icons[housePick] : null"
           :waves="props.winner === 'house'"
-          :style="{ '--size': '75%' }"
         >
         </SignalButton>
       </div>
@@ -87,6 +85,8 @@ onMounted(start)
 
 <style scoped>
 .component {
+  --size: 75%;
+
   margin-block: 3rem 0;
   text-align: center;
   display: flex;
@@ -128,7 +128,7 @@ onMounted(start)
 }
 
 .result:not(.finished) {
-	opacity: 0;
+  opacity: 0;
 }
 
 .result span {
@@ -146,5 +146,36 @@ onMounted(start)
 .result {
   --background-color: var(--white);
   --color: var(--dark-text);
+}
+
+@media (min-width: 800px) {
+  .component {
+    --size: 44%;
+
+    margin-block-start: 0;
+    height: 100%;
+  }
+
+  .signal-button {
+    width: 51%;
+  }
+
+  .result:not(.finished) {
+    display: none;
+  }
+
+  .result {
+    flex: 0 1 auto;
+    justify-content: center;
+  }
+
+  .item.house {
+    order: 1;
+  }
+
+  .item:not(.result) {
+    flex-flow: column-reverse;
+    gap: 1em;
+  }
 }
 </style>

@@ -18,7 +18,7 @@ const score = ref(0)
 const winner = ref<Winner>()
 const player = ref<Signal>("empty")
 
-const showRules = ref(true)
+const showRules = ref(false)
 
 function play(housePick: keyof BaseIcons): number {
   if (housePick === player.value) {
@@ -80,17 +80,10 @@ function restart(): void {
     </Teleport>
   </main>
 
-  <AppFooter @show-rules="showRules = true"></AppFooter>
+  <AppFooter class="footer" @show-rules="showRules = true"></AppFooter>
 </template>
 
 <style scoped>
-.header {
-  border: 2px solid var(--header-outline);
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  padding-left: 1.25rem;
-}
-
 main {
   flex: 1;
   display: flex;
@@ -183,5 +176,30 @@ main {
 .triangle .connectors {
   width: 66%;
   z-index: -1;
+}
+
+@media (min-width: 800px) {
+  .header {
+    flex-basis: 100%;
+  }
+
+  main {
+    padding-block: 0;
+    font-size: 0.75rem;
+  }
+
+  .footer {
+    align-self: flex-end;
+    font-size: 0.75rem;
+  }
+
+  .pentagon .signal-button {
+    --size: 34%;
+  }
+
+  .triangle .signal-button {
+		/* TODO: set size */
+    --size: 32%;
+  }
 }
 </style>

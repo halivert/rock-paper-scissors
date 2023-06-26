@@ -30,7 +30,7 @@ const $emit = defineEmits<{
 <style scoped>
 footer {
   text-align: center;
-  padding-block: 0 1.25rem;
+  padding-block: 0 1.25em;
 }
 
 .rules-button {
@@ -43,7 +43,7 @@ footer {
 
 .attribution {
   position: fixed;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   bottom: 0.25em;
   left: 0;
   right: 0;

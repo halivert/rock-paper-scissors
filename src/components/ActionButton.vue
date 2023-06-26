@@ -15,7 +15,7 @@
 
 	border-style: solid;
 	border-width: 1px;
-	font-size: 1rem;
+	font-size: 1em;
 	padding-inline: 3.25em;
 	padding-block: 0.75em;
 	text-transform: uppercase;
