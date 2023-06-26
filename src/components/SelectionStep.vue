@@ -54,6 +54,7 @@ onMounted(start)
           :signal="props.player"
           :icon="icons[props.player]"
           :waves="props.winner === 'player'"
+          :style="{ '--size': '75%' }"
         >
         </SignalButton>
       </div>
@@ -74,6 +75,7 @@ onMounted(start)
           :signal="housePick"
           :icon="housePick !== 'empty' ? icons[housePick] : null"
           :waves="props.winner === 'house'"
+          :style="{ '--size': '75%' }"
         >
         </SignalButton>
       </div>
@@ -85,7 +87,7 @@ onMounted(start)
 
 <style scoped>
 .component {
-  margin-block: 5rem 0;
+  margin-block: 3rem 0;
   text-align: center;
   display: flex;
   justify-content: space-around;
@@ -133,7 +135,8 @@ onMounted(start)
 }
 
 .signal-button {
-	width: 100%;
+	width: 87%;
+	pointer-events: none;
 }
 
 .result {
