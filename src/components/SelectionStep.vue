@@ -62,7 +62,7 @@ onMounted(start)
       <label> You picked </label>
     </div>
 
-    <div class="item result" v-if="props.winner">
+    <div :class="['item result', { finished: !!props.winner }]">
       <span> {{ status }} </span>
 
       <ActionButton @click="$emit('play-again')"> Play again </ActionButton>
@@ -93,7 +93,7 @@ onMounted(start)
   justify-content: space-around;
   flex-flow: row wrap;
   row-gap: 4rem;
-	column-gap: 1.75rem;
+  column-gap: 1.75rem;
 }
 
 .block {
@@ -112,7 +112,7 @@ onMounted(start)
 }
 
 .component label {
-	font-size: 0.875rem;
+  font-size: 0.875rem;
   color: var(--white);
   display: block;
   margin-block: 1em 0;
@@ -127,6 +127,10 @@ onMounted(start)
   align-items: center;
 }
 
+.result:not(.finished) {
+	opacity: 0;
+}
+
 .result span {
   color: var(--white);
   font-size: 3.5em;
@@ -135,8 +139,8 @@ onMounted(start)
 }
 
 .signal-button {
-	width: 87%;
-	pointer-events: none;
+  width: 87%;
+  pointer-events: none;
 }
 
 .result {
