@@ -26,7 +26,7 @@ jobs:
           SLUG: rock-paper-scissors
         run: |
           npm i
-          npm run build -- --base="/$SLUG/"
+          npm run build-only -- --base="/$SLUG/"
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
