@@ -54,6 +54,7 @@ onMounted(start)
           :signal="props.player"
           :icon="icons[props.player]"
           :waves="props.winner === 'player'"
+          :aria-label="`You picked ${props.player}`"
         >
         </SignalButton>
       </div>
@@ -74,6 +75,11 @@ onMounted(start)
           :signal="housePick"
           :icon="housePick !== 'empty' ? icons[housePick] : null"
           :waves="props.winner === 'house'"
+          :aria-label="
+            housePick !== 'empty'
+              ? `House picked ${housePick}`
+              : 'House is picking...'
+          "
         >
         </SignalButton>
       </div>

@@ -57,6 +57,7 @@ function restart(): void {
           :signal="name"
           :icon="icon"
           @select="player = $event"
+          :aria-label="`Button to pick ${name}`"
         >
         </SignalButton>
         <img class="connectors" :src="connectors" alt="" aria-hidden="true" />

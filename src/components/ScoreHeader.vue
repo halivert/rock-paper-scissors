@@ -14,10 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <section :class="['score-header', { bonus }]">
-    <img class="title" :src="bonus ? bonusLogo : logo" />
+    <img class="title" :src="bonus ? bonusLogo : logo" alt="logo" />
 
     <div class="score">
-      <span class="label">Score</span>
+      <h2 class="label">Score</h2>
       <span class="value">{{ props.score }}</span>
     </div>
   </section>

@@ -35,9 +35,9 @@ const $emit = defineEmits<{
       '--icon-bg-color': props.icon.color,
     }"
   >
-    <div class="circle">
-      <img :src="props.icon.icon" />
-    </div>
+    <span class="circle">
+      <img :src="props.icon.icon" :alt="`${props.signal} icon`" />
+    </span>
   </button>
 </template>
 
