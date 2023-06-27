@@ -14,7 +14,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <section :class="['score-header', { bonus }]">
-    <img class="title" :src="bonus ? bonusLogo : logo" alt="logo" />
+    <h1 class="title">
+      <img :src="bonus ? bonusLogo : logo" alt="logo" />
+    </h1>
 
     <div class="score">
       <h2 class="label">Score</h2>
