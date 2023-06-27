@@ -14,7 +14,7 @@ const $emit = defineEmits<{
 </script>
 
 <template>
-  <dialog :open="open" class="dialog">
+  <div :class="['dialog', { open }]">
     <div class="content">
       <h2 class="title">Rules</h2>
       <picture class="picture">
@@ -32,7 +32,7 @@ const $emit = defineEmits<{
         <img :src="CloseButton" alt="close icon" />
       </button>
     </div>
-  </dialog>
+  </div>
 </template>
 
 <style scoped>
@@ -60,7 +60,7 @@ const $emit = defineEmits<{
   border-radius: 32px;
 }
 
-.dialog[open] {
+.dialog.open {
   display: flex;
 }
 
