@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { ref, computed, onUnmounted } from "vue"
 import bonusLogo from "@/assets/logo-bonus.svg"
 import logo from "@/assets/logo.svg"
 
@@ -12,6 +12,10 @@ const props = withDefaults(defineProps<Props>(), {
   bonus: false,
 })
 
+const $emit = defineEmits<{
+  bonusUpdate: [bonus: boolean]
+}>()
+
 const title = computed(() => {
   if (props.bonus) {
     return "Rock, Paper, Scissors, Lizard, Spock"
@@ -19,12 +23,49 @@ const title = computed(() => {
 
   return "Rock, Paper, Scissors"
 })
+
+const timeout = ref(0)
+const clicks = ref(0)
+
+const expireTime = 1000
+
+function clearClicks(): void {
+  clicks.value = 0
+}
+
+function clearClickTimeout(): void {
+  if (timeout.value) clearTimeout(timeout.value)
+  timeout.value = 0
+}
+
+function handleTitleClick(): void {
+  clicks.value++
+
+  if (clicks.value >= 3) {
+    clicks.value = 0
+    $emit("bonusUpdate", props.bonus)
+    clearClickTimeout()
+  }
+
+  if (clicks.value === 1) {
+    timeout.value = setTimeout(clearClicks, expireTime)
+  } else if (timeout.value) {
+    clearClickTimeout()
+    timeout.value = setTimeout(clearClicks, expireTime)
+  }
+}
+
+onUnmounted(clearClickTimeout)
 </script>
 
 <template>
   <section :class="['score-header', { bonus }]">
     <h1 class="title">
-      <img :src="bonus ? bonusLogo : logo" :alt="title" />
+      <img
+        :src="bonus ? bonusLogo : logo"
+        :alt="title"
+        @click="handleTitleClick"
+      />
     </h1>
 
     <div class="score">
@@ -36,10 +77,13 @@ const title = computed(() => {
 
 <style scoped>
 .score-header {
+  --padding-block: 0.5em;
+
   border: 2px solid var(--header-outline);
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  padding-left: 1.25rem;
+  border-radius: 0.25em;
+  padding: 0.75em;
+  padding-inline-start: 1.25em;
+  padding-block: var(--padding-block);
 
   display: flex;
   flex-flow: row wrap;
@@ -49,13 +93,19 @@ const title = computed(() => {
   overflow: hidden;
 }
 
+.score-header.bonus {
+  --padding-block: 0.75em;
+}
+
 .score-header.bonus .title {
-  height: 4em;
+  max-height: 4em;
 }
 
 .title {
-  height: 3em;
+  max-height: 3em;
   aspect-ratio: 1;
+  display: flex;
+  align-items: center;
 }
 
 .title img {

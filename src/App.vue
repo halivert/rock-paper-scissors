@@ -40,11 +40,15 @@ function restart(): void {
   winner.value = undefined
   player.value = "empty"
 }
+
+function bonusUpdate(newBonus: boolean): void {
+  bonus.value = !newBonus
+}
 </script>
 
 <template>
   <header class="header">
-    <ScoreHeader :score="score" :bonus="bonus" />
+    <ScoreHeader :score="score" :bonus="bonus" @bonus-update="bonusUpdate" />
   </header>
 
   <main>
