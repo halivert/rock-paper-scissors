@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import bonusLogo from "@/assets/logo-bonus.svg"
 import logo from "@/assets/logo.svg"
 
@@ -10,12 +11,20 @@ export interface Props {
 const props = withDefaults(defineProps<Props>(), {
   bonus: false,
 })
+
+const title = computed(() => {
+  if (props.bonus) {
+    return "Rock, Paper, Scissors, Lizard, Spock"
+  }
+
+  return "Rock, Paper, Scissors"
+})
 </script>
 
 <template>
   <section :class="['score-header', { bonus }]">
     <h1 class="title">
-      <img :src="bonus ? bonusLogo : logo" alt="logo" />
+      <img :src="bonus ? bonusLogo : logo" :alt="title" />
     </h1>
 
     <div class="score">
@@ -46,6 +55,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 .title {
   height: 3em;
+  aspect-ratio: 1;
+}
+
+.title img {
+  width: 100%;
 }
 
 .score {
