@@ -20,16 +20,16 @@ This is a solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](h
 
 Users should be able to:
 
--[x] View the optimal layout for the game depending on their device's screen size
--[x] Play Rock, Paper, Scissors against the computer
--[ ] Maintain the state of the score after refreshing the browser _(optional)_
--[x] **Bonus**: Play Rock, Paper, Scissors, Lizard, Spock against the computer _(optional)_
+- [x] View the optimal layout for the game depending on their device's screen size
+- [x] Play Rock, Paper, Scissors against the computer
+- [ ] Maintain the state of the score after refreshing the browser _(optional)_
+- [x] **Bonus**: Play Rock, Paper, Scissors, Lizard, Spock against the computer _(optional)_
 
 _Note: for the bonus triple click the title of the game_
 
 ### Screenshot
 
-![Desktop screenshot](./Screenshot 2023-06-27 at 12-55-46 Rock Paper Scissors.png)
+![Desktop screenshot](https://github.com/halivert/rock-paper-scissors/assets/16197249/306d2ae1-12c4-44fe-a31f-50770cad541d)
 
 ### Links
 
