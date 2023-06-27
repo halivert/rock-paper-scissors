@@ -1,4 +1,4 @@
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { filterObject, getBooleanQueryParam } from "@/helpers"
 import RockIcon from "@/assets/icon-rock.svg"
 import PaperIcon from "@/assets/icon-paper.svg"
@@ -53,4 +53,14 @@ export const icons = computed(() =>
 
 export const connectors = computed(() =>
   bonus.value ? PentagonConnector : TriangleConnector
+)
+
+watch(
+  bonus,
+  (bonus) => {
+    document.title = bonus
+      ? "Rock, Paper, Scissors, Lizard, Spock"
+      : "Rock, Paper, Scissors"
+  },
+  { immediate: true }
 )
